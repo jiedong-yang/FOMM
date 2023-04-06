@@ -1,3 +1,4 @@
+import os
 import sys
 import yaml
 from argparse import ArgumentParser
@@ -78,6 +79,7 @@ def make_animation(source_image, driving_video, generator, kp_detector, relative
             predictions.append(np.transpose(out['prediction'].data.cpu().numpy(), [0, 2, 3, 1])[0])
     return predictions
 
+
 def find_best_frame(source, driving, cpu=False):
     import face_alignment  # type: #ignore(local_file)
     from scipy.spatial import ConvexHull
@@ -103,6 +105,7 @@ def find_best_frame(source, driving, cpu=False):
             norm = new_norm
             frame_num = i
     return frame_num
+
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -156,6 +159,7 @@ if __name__ == "__main__":
         predictions = predictions_backward[::-1] + predictions_forward[1:]
     else:
         predictions = make_animation(source_image, driving_video, generator, kp_detector, relative=opt.relative, adapt_movement_scale=opt.adapt_scale, cpu=opt.cpu)
+    os.makedirs(os.path.dirname(opt.result_video), exist_ok=True)
     imageio.mimsave(opt.result_video, [img_as_ubyte(frame) for frame in predictions], fps=fps)
 
     if opt.audio:
