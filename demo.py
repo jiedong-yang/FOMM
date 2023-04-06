@@ -79,7 +79,7 @@ def make_animation(source_image, driving_video, generator, kp_detector, relative
     return predictions
 
 def find_best_frame(source, driving, cpu=False):
-    import face_alignment  # type: ignore (local file)
+    import face_alignment  # type: #ignore(local_file)
     from scipy.spatial import ConvexHull
 
     def normalize_kp(kp):
@@ -141,9 +141,9 @@ if __name__ == "__main__":
     except RuntimeError:
         pass
     reader.close()
-
-    source_image = resize(source_image, (256, 256))[..., :3]
-    driving_video = [resize(frame, (256, 256))[..., :3] for frame in driving_video]
+    size = (512, 512)
+    source_image = resize(source_image, size)[..., :3]
+    driving_video = [resize(frame, size)[..., :3] for frame in driving_video]
     generator, kp_detector = load_checkpoints(config_path=opt.config, checkpoint_path=opt.checkpoint, cpu=opt.cpu)
 
     if opt.find_best_frame or opt.best_frame is not None:
