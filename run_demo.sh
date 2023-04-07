@@ -6,8 +6,8 @@ do
 	python demo.py \
         	--config config/vox-512.yaml \
 	        --driving_video "./assets/videos/doc-squares/Doc Lipsync Square ${i}.mp4" \
-        	--source_image ./assets/images/512-1/docrealisticavatar.png \
-	        --result_video "./results/512-1.1/doc_real-doc-lip-0-512-${padded_number}.mp4" \
+        	--source_image ./assets/images/512-1/docrealisticavatar2.png \
+	        --result_video "./results/512-doc-real-2/00282-doc-lip-0-512-${padded_number}.mp4" \
 	        --checkpoint checkpoints/vox-512.pth.tar \
 	        --relative \
 	        --adapt_scale \

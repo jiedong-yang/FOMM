@@ -23,6 +23,7 @@ from tempfile import NamedTemporaryFile
 if sys.version_info[0] < 3:
     raise Exception("You must use Python 3 or higher. Recommended version is Python 3.7")
 
+
 def load_checkpoints(config_path, checkpoint_path, cpu=False):
 
     with open(config_path) as f:
@@ -164,6 +165,9 @@ if __name__ == "__main__":
 
     if opt.audio:
         with NamedTemporaryFile(suffix='.' + splitext(opt.result_video)[1]) as output:
-            ffmpeg.output(ffmpeg.input(opt.result_video).video, ffmpeg.input(opt.driving_video).audio, output.name, c='copy').run()
+            ffmpeg.output(
+                ffmpeg.input(opt.result_video).video,
+                ffmpeg.input(opt.driving_video).audio,
+                output.name, c='copy').run(overwrite_output=True)
             with open(opt.result_video, 'wb') as result:
                 copyfileobj(output, result)
